@@ -9,12 +9,13 @@
 import UIKit
 
 class ToDoListViewController: UITableViewController {
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-    let itemArray = ["Karachi", "Lahore", "Islamabad"]
+    var itemArray = ["Karachi", "Lahore", "Islamabad"]
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -52,12 +53,20 @@ class ToDoListViewController: UITableViewController {
     //MARK - ADD Button Action
     
     @IBAction func AddButtonPressed(_ sender: UIBarButtonItem) {
-        
+        var textField = UITextField()
         let alert = UIAlertController(title: "Add Todoey Item", message: "", preferredStyle: .alert)
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            self.itemArray.append(textField.text!)
+            self.tableView.reloadData()
         
-            print("Succes")
+            
             }
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Create Todoey"
+            textField = alertTextField
+            
+        }
+        
             
             alert.addAction(action)
             self.present(alert, animated: true, completion: nil)
